@@ -23,6 +23,7 @@
 -->
 
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="paper-dropdown-element-behavior.html">
 <link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../paper-listbox/paper-listbox.html">
@@ -32,6 +33,18 @@
 <dom-module id="paper-dropdown">
     <template>
         <style>
+
+            :host {
+              @apply --layout-horizontal;
+            }
+
+            paper-dropdown-menu {
+                @apply --layout-flex;
+            }
+
+            #search-box-container {
+              width: 100%;
+            }
             #search-box {
                 box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
                 padding: 0 2px 0 16px;
@@ -39,6 +52,7 @@
                 width: 100%;
                 height: 48px;
                 line-height: 48px;
+                @apply --paper-dropdown-search-box;
             }
     
             :host * {
@@ -47,6 +61,7 @@
     
             paper-listbox {
                 overflow-x: hidden;
+                @apply --paper-dropdown-listbox;
             }
     
             :host([multi]) ::slotted(paper-item) {
@@ -87,10 +102,10 @@
                     multi="{{multi}}">
                 <template is="dom-if" if="{{searchable}}">
                     <iron-input 
-                        bind-value="{{_searchText}}">
+                        bind-value="{{_searchText}}" id="search-box-container">
                         <input
                             id="search-box"
-                            placeholder="Search..."
+                            placeholder="Recherche..."
                             type="text"
                             on-tap="_stopEventPropagation"
                             on-keydown="_stopEventPropagation"
@@ -306,7 +321,9 @@
                     type: Boolean,
                     value: false,
                     observer: '_multiChanged'
-                }
+                },
+
+                attrForSelectedLabel: String
             },
             observers: [
                 '_filter(_searchText)',
@@ -414,13 +431,21 @@
              */
             _updateSelectedItemLabel: function(label) {
                 if (this.multi) {
+                    let label = null
                     if (this._selectedItems.length > 1) {
-                        this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems.length + ' items selected');
+                        if(!this.attrForSelectedLabel){
+                            label = this._selectedItems.length + ' items selected';
+                        } else {
+                            label = this._selectedItems.map((o) => { return o.getAttribute(this.attrForSelectedLabel) }).join(', ')
+                        }
                     } else if (this._selectedItems.length == 1) {
-                        this.$.dropdownMenu._setSelectedItemLabel(this._selectedItems[0].textContent.trim());
-                    } else {
-                        this.$.dropdownMenu._setSelectedItemLabel(null);
+                        if(!this.attrForSelectedLabel){
+                            label = this._selectedItems[0].textContent.trim();
+                        } else {
+                            label = this._selectedItems[0].getAttribute(this.attrForSelectedLabel)
+                        }
                     }
+                    this.$.dropdownMenu._setSelectedItemLabel(label)
                 }
             },
 
