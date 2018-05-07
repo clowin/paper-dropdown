@@ -79,6 +79,7 @@
                 id="dropdownMenu"
                 label="{{label}}"
                 opened="{{opened}}"
+                focused="{{focused}}"
                 error-message="{{errorMessage}}"
                 allow-outside-scroll="{{allowOutsideScroll}}"
                 no-label-float="{{noLabelFloat}}"
@@ -224,6 +225,16 @@
                 },
 
                 /**
+                 * This is true if the dropdown is in focused state
+                 */
+                focused: {
+                    type: Boolean,
+                    notify: true,
+                    value: false,
+                    observer: '_onFocusedChanged'
+                },
+
+                /**
                  * If true, a text field is shown at the top of dropdown which
                  * user can use to search/filter for an item.
                  */
@@ -311,7 +322,7 @@
                  */
                 restoreFocusOnClose: {
                     type: Boolean,
-                    value: true
+                    value: false
                 },
 
                 /**
