@@ -351,6 +351,14 @@
                     attrForSelectedLabel: String,
 
                     /**
+                     * If true, list selected values
+                     */
+                    listSelected: {
+                      type: Boolean,
+                      value: false
+                    },
+
+                    /**
                      * Key code for UP Arrow.
                      *
                      * @constant
@@ -461,23 +469,21 @@
              * @private
              */
             _updateSelectedItemLabel(label) {
-                if (this.multi) {
-                    let label = null
-                    if (this._selectedItems.length > 1) {
-                        if(!this.attrForSelectedLabel){
-                            label = this._selectedItems.length + ' items selected';
-                        } else {
-                            label = this._selectedItems.map((o) => { return o.getAttribute(this.attrForSelectedLabel) }).join(', ')
-                        }
-                    } else if (this._selectedItems.length == 1) {
-                        if(!this.attrForSelectedLabel){
-                            label = this._selectedItems[0].textContent.trim();
-                        } else {
-                            label = this._selectedItems[0].getAttribute(this.attrForSelectedLabel)
-                        }
-                    }
-                    this.$.dropdownMenu._setSelectedItemLabel(label)
+              if (this.multi) {
+                if (this._selectedItems.length > 1) {
+                  if (this.listSelected) {
+                    this.$.dropdownMenu.value = this._selectedItems.map((o) => {
+                      return o.textContent.trim();
+                    })
+                  } else {
+                    this.$.dropdownMenu.value = this._selectedItems.length + ' ' + this.selectedPlaceholder;
+                  }
+                } else if (this._selectedItems.length === 1) {
+                  this.$.dropdownMenu.value = this._selectedItems[0].textContent.trim();
+                } else {
+                  this.$.dropdownMenu.value = null;
                 }
+              }
             }
 
             /**
