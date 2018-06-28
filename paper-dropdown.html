@@ -357,6 +357,14 @@
                       type: Boolean,
                       value: false
                     },
+                    
+                    /**
+                     * Separator used between the list of selected values.
+                     */
+                    listSelectedSeparator: {
+                      type: String,
+                      value: ', '
+                    },
 
                     /**
                      * Key code for UP Arrow.
@@ -474,7 +482,7 @@
                   if (this.listSelected) {
                     this.$.dropdownMenu.value = this._selectedItems.map((o) => {
                       return o.textContent.trim();
-                    })
+                    }).join(this.listSelectedSeparator)
                   } else {
                     this.$.dropdownMenu.value = this._selectedItems.length + ' ' + this.selectedPlaceholder;
                   }
