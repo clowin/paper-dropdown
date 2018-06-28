@@ -87,6 +87,7 @@
                 no-animations="{{noAnimations}}"
                 horizontal-align="{{horizontalAlign}}"
                 vertical-align="{{verticalAlign}}"
+                vertical-offset="{{verticalOffset}}"
                 dynamic-align="{{dynamicAlign}}"
                 restore-focus-on-close="{{restoreFocusOnClose}}"
                 disabled="{{disabled}}"
@@ -321,6 +322,11 @@
                         value: 'top'
                     },
 
+                    verticalOffset: {
+                        type: Number,
+                        value: 50
+                    },
+
                     /**
                      * If true, the `horizontalAlign` and `verticalAlign` properties will
                      * be considered preferences instead of strict requirements when
@@ -411,6 +417,7 @@
                 super.ready();
                 this.set('_searchText', '');
                 this.set('_attrForSelected', null);
+                this.$.dropdownMenu.set('verticalOffset', this.verticalOffset);
             }
 
             /**
