@@ -570,22 +570,18 @@
              * @private
              */
             _updateSelected(value) {
-                var items = this.$.list.items;
-                if (items.length > 0) {
-                    if (this.multi) {
-                        this.$.list.set('selectedValues', value);
-                    } else {
-                        for (let index = 0; index < items.length; index++) {
-                            if (this._getItemValue(items[index]) === value) {
-                                this.set('selected', index);
-                                this.set('_selected', index);
-                                return;
-                            }
-                        };
-                        this.set('_selected', -1);
-                        this.set('selected', -1);
-                    }
-                }
+              var items = this.$.list.items;
+              if (items.length > 0) {
+                for (let index = 0; index < items.length; index++) {
+                  if (this._getItemValue(items[index]) === value) {
+                    this.set('selected', index);
+                    this.set('_selected', index);
+                    return;
+                  }
+                };
+                this.set('_selected', -1);
+                this.set('selected', -1);
+              }
             }
 
             /**
