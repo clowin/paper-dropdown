@@ -310,6 +310,136 @@
               </p>
             </template>
         </demo-snippet>
+
+        <h3>Update via code</h3>
+        <demo-snippet>
+          <dom-bind id="dynamic-paper-dropdown">
+            <template>
+              <paper-dropdown 
+                    id="paper-dropdown"
+                    label="Fruit"
+                    value="{{value}}"
+                    searchable="true"
+                    multi="true"
+                    list-selected="true"
+                    vertical-offset="50">
+                <template is="dom-repeat"
+                          items="[[dropdownItems]]">
+                  <paper-item value="[[item.value]]">[[item.text]]</paper-item>
+                </template>
+              </paper-dropdown>
+              <p>
+              <b>Selected Fruit Key(s):</b> {{value}}
+              </p>
+              <div class="btns">
+                <button id="add-item">Add item</button>
+                <button id="add-item-selected">Add item selected</button>
+              </div>
+              <script>
+                var bind = document.querySelector("#dynamic-paper-dropdown")
+                var dropdown = document.querySelector("#paper-dropdown")
+                var repeat = document.querySelector("#repeat-items")
+                var addItemBtn = document.querySelector("#add-item")
+                var addItemSelectedBtn = document.querySelector("#add-item-selected")
+                var addItemCount = 0
+                fruits = [
+                  {value: "apple", text: "Apple"},
+                  {value: "banana", text: "Banana"},
+                  {value: "mango", text: "Mango"},
+                  {value: "orange", text: "Orange"},
+                  {value: "tomato", text: "Tomato"}
+                ]
+                addItemBtn.disabled = true
+                addItemSelectedBtn.disabled = true
+                // Simulate ajax delay
+                setTimeout(() => {
+                  bind.dropdownItems = fruits
+                  addItemBtn.disabled = false
+                  addItemSelectedBtn.disabled = false
+                }, 2000)
+
+                addItemBtn.addEventListener('tap',() => {
+                  ++addItemCount
+                  const value = "item_"+addItemCount
+                  const text = "item#"+addItemCount
+                  bind.push('dropdownItems', {value, text})
+                })
+
+                addItemSelectedBtn.addEventListener('tap', () => {
+                  ++addItemCount
+                  const value = "item_"+addItemCount
+                  const text = "item#"+addItemCount
+                  bind.push('dropdownItems', {value, text})
+                  setTimeout(() => {
+                    dropdown.selectItemByValue(value)
+                  }, 100)
+                })
+              </script>
+            </template>
+          </dom-bind>
+          <template is="dom-bind">
+              <paper-dropdown 
+                    id="paper-dropdown"
+                    label="Fruit"
+                    value="{{value}}"
+                    searchable="true"
+                    multi="true"
+                    list-selected="true"
+                    vertical-offset="50">
+                <template is="dom-repeat"
+                          items="[[dropdownItems]]">
+                  <paper-item value="[[item.value]]">[[item.text]]</paper-item>
+                </template>
+              </paper-dropdown>
+              <p>
+              <b>Selected Fruit Key(s):</b> {{value}}
+              </p>
+              <div class="btns">
+                <button id="add-item">Add item</button>
+                <button id="add-item-selected">Add item selected</button>
+              </div>
+              <script>
+                var bind = document.querySelector("#dynamic-paper-dropdown")
+                var dropdown = document.querySelector("#paper-dropdown")
+                var repeat = document.querySelector("#repeat-items")
+                var addItemBtn = document.querySelector("#add-item")
+                var addItemSelectedBtn = document.querySelector("#add-item-selected")
+                var addItemCount = 0
+                fruits = [
+                  {value: "apple", text: "Apple"},
+                  {value: "banana", text: "Banana"},
+                  {value: "mango", text: "Mango"},
+                  {value: "orange", text: "Orange"},
+                  {value: "tomato", text: "Tomato"}
+                ]
+                addItemBtn.disabled = true
+                addItemSelectedBtn.disabled = true
+                // Simulate ajax delay
+                setTimeout(() => {
+                  bind.dropdownItems = fruits
+                  addItemBtn.disabled = false
+                  addItemSelectedBtn.disabled = false
+                }, 2000)
+
+                addItemBtn.addEventListener('tap',() => {
+                  ++addItemCount
+                  const value = "item_"+addItemCount
+                  const text = "item#"+addItemCount
+                  bind.push('dropdownItems', {value, text})
+                })
+
+                addItemSelectedBtn.addEventListener('tap', () => {
+                  ++addItemCount
+                  const value = "item_"+addItemCount
+                  const text = "item#"+addItemCount
+                  bind.push('dropdownItems', {value, text})
+                  setTimeout(() => {
+                    dropdown.selectItemByValue(value)
+                  }, 100)
+                })
+              </script>
+          </template>
+        </demo-snippet>
     </div>
 </body>
 </html>
