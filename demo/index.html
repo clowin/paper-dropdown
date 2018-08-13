@@ -275,23 +275,26 @@
         </demo-snippet>
         <h3>Explicitly list selected</h3>
         <demo-snippet>
-            <dom-bind>
-                <template>
-                    <paper-dropdown label="Fruit" value="{{value}}" searchable="true" multi="true"
-                      list-selected="true"
-                      vertical-offset="50"
-                    >
-                        <paper-item value="apple">Apple</paper-item>
-                        <paper-item value="banana">Banana</paper-item>
-                        <paper-item value="mango">Mango</paper-item>
-                        <paper-item value="orange">Orange</paper-item>
-                        <paper-item value="tomato">Tomato</paper-item>
-                    </paper-dropdown>
-                    <p>
-                        <b>Selected Fruit Key(s):</b> {{value}}
-                    </p>
-                </template>
-            </dom-bind>
+          <dom-bind>
+            <template>
+              <paper-dropdown 
+                label="Fruit"
+                value="{{value}}"
+                searchable="true"
+                multi="true"
+                list-selected="true"
+                vertical-offset="50">
+                <paper-item value="apple">Apple</paper-item>
+                <paper-item value="banana">Banana</paper-item>
+                <paper-item value="mango">Mango</paper-item>
+                <paper-item value="orange">Orange</paper-item>
+                <paper-item value="tomato">Tomato</paper-item>
+              </paper-dropdown>
+              <p>
+              <b>Selected Fruit Key(s):</b> {{value}}
+              </p>
+            </template>
+          </dom-bind>
             <template is="dom-bind">
               <paper-dropdown label="Fruit" value="{{value}}" searchable="true" multi="true"
                 list-selected=true
