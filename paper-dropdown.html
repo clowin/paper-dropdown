@@ -438,6 +438,25 @@
                 this.$.dropdownMenu.close();
             }
 
+            selectItemByValue(value) {
+              var valueIndex
+              const listItemIndexByValue = (value) => {
+                const items = this.$.list.items
+                const type = 'PAPER-ITEM'
+                var valueItemIndex
+                items.some((item) => {
+                  if(item.nodeName === type && item.value === value) {
+                    valueItemIndex = items.indexOf(item)
+                    return true
+                  }
+                })
+                return valueItemIndex
+              }
+              listItemIndexByValue.bind(this)
+              valueIndex = listItemIndexByValue(value)
+              this.$.list.select(valueIndex)
+            }
+
             /**
              * If multi is true, it updates dropdown's menu button
              * not to close on item select so that user can select
